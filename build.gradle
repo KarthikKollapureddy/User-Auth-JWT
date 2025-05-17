@@ -1,0 +1,58 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.5'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.security'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+dependencies {
+	implementation enforcedPlatform("org.springframework.boot:spring-boot-dependencies:3.4.5")
+	// Core Spring Boot Dependencies
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'  // JPA for database access
+	implementation 'org.springframework.boot:spring-boot-starter-security'  // Security for authentication/authorization
+	implementation 'org.springframework.boot:spring-boot-starter-web'  // Web for building REST APIs
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'  // For app monitoring and metrics
+
+	// Swagger and OpenAPI Support
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8'  // Swagger UI and OpenAPI support
+
+	// JWT for authentication
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.6'   // JJWT API
+	implementation 'io.jsonwebtoken:jjwt-impl:0.12.6'  // JJWT Implementation
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.12.6'  // JJWT Jackson
+
+	// Lombok for reducing boilerplate code (e.g., getters, setters, constructors)
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// Databases (Choose one: H2 or MySQL)
+	runtimeOnly 'com.h2database:h2'  // H2 for in-memory database (development)
+	runtimeOnly 'com.mysql:mysql-connector-j'  // MySQL for production
+
+	// Testing dependencies
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'  // Spring Boot Test support
+	testImplementation 'org.springframework.security:spring-security-test'  // Spring Security Test support
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'  // JUnit 5 support
+}
+
+tasks.named('test') {
+	useJUnitPlatform()  // Use JUnit Platform for tests
+}
