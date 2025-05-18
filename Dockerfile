@@ -1,5 +1,6 @@
 # Stage 1: Use Gradle image to build the application
 FROM gradle:7.5-jdk17 AS build
+ARG SECRET="566B59703373367638792F423F4528482B4D6251655468576D5A713474377721"
 
 # Set the working directory in the container
 WORKDIR /app
