@@ -30,6 +30,11 @@ public class CustomExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(status.value(), ex.getMessage());
         return new ResponseEntity<>(errorResponse, status);
     }
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.CONFLICT.value(), ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
     private HttpStatus resolveAnnotatedResponseStatus(Exception ex) {
         ResponseStatus statusAnnotation = AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class);
         if (statusAnnotation != null) {

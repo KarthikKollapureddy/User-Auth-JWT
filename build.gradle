@@ -30,6 +30,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'  // Security for authentication/authorization
 	implementation 'org.springframework.boot:spring-boot-starter-web'  // Web for building REST APIs
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'  // For app monitoring and metrics
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb' // For Mongo
 
 	// Swagger and OpenAPI Support
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8'  // Swagger UI and OpenAPI support
@@ -45,8 +46,7 @@ dependencies {
 
 	// Databases (Choose one: H2 or MySQL)
 	runtimeOnly 'com.h2database:h2'  // H2 for in-memory database (development)
-	runtimeOnly 'com.mysql:mysql-connector-j'  // MySQL for production
-
+//	runtimeOnly 'com.mysql:mysql-connector-j'  // MySQL for production
 	// Testing dependencies
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'  // Spring Boot Test support
 	testImplementation 'org.springframework.security:spring-security-test'  // Spring Security Test support

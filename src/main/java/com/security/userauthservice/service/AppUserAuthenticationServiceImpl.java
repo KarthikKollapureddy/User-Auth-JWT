@@ -4,6 +4,7 @@ import com.security.userauthservice.DTO.AuthenticationRequest;
 import com.security.userauthservice.DTO.AuthenticationResponse;
 import com.security.userauthservice.DTO.RegisterRequest;
 import com.security.userauthservice.DTO.RegisterResponse;
+import com.security.userauthservice.Exceptions.UserAlreadyExistsException;
 import com.security.userauthservice.dao.AppUserRepository;
 import com.security.userauthservice.entity.AppUser;
 import com.security.userauthservice.entity.Roles;
@@ -36,7 +37,11 @@ public class AppUserAuthenticationServiceImpl implements AppUserAuthenticationSe
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Roles.USER)
                 .build();
-        userRepository.save(user);
+        if(userRepository.findByEmail(user.getEmail()).isPresent()){
+            throw new UserAlreadyExistsException("Email: "+user.getEmail()+" already in use");
+        }else{
+            userRepository.save(user);
+        }
 //        String token = jwtService.generateToken(user);
         log.info("User registered successfully");
         return RegisterResponse.builder()
